@@ -6,3 +6,11 @@ exports.save = async ({ cidade, data }) => {
 exports.findAll = async () => {
     return prisma.history.findMany();
 };
+
+exports.findById = async (id) => {
+    return prisma.history.findUnique({
+        where: {
+            id: parseInt(id),
+        },
+    });
+};

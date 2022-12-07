@@ -1,5 +1,4 @@
-const { findSync } = require("@prisma/client/runtime");
-const { save, findAll } = require("../services/history.service");
+const { save, findAll, findById } = require("../services/history.service");
 
 const History = require("../models/history.model").History;
 
@@ -29,6 +28,24 @@ exports.find = async (req, res) => {
         res.json({
             success: true,
             data: histories,
+        });
+    } catch (e) {
+        console.log("Descricao: " + e);
+        res.json({
+            success: false,
+            error: {
+                data: e,
+            },
+        });
+    }
+};
+
+exports.findById = async (req, res) => {
+    try {
+        const history = await findById(req.params.id);
+        res.json({
+            success: true,
+            data: history,
         });
     } catch (e) {
         console.log("Descricao: " + e);
